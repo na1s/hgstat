@@ -1,5 +1,7 @@
+from time import *
+
 from mercurial.node import hex, nullid
-from models.Repository import *
+from models.repository import *
 
 
 def generate_statistic(ui, repo, **opts):
@@ -10,6 +12,10 @@ def generate_statistic(ui, repo, **opts):
     ui.write("Heads count:%d\r\n" % len(repo.heads()))
     ui.write("Branches count:%d\r\n" % len(branches))
     ui.write("Open branches count:%d\r\n" % len([b for b in branches if b.status == "open"]))
+    for b in branches:
+        date_str = strftime("%Y-%m-%d %H:%M:%S", b.get_date())
+        print b.get_user()
+        ui.write("Branch : %s, Date:%s\r\n" % (b.get_name(), date_str))
 
 
 cmdtable = {

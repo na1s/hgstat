@@ -21,5 +21,5 @@ class Repository:
                 status = 'inactive'
             else:
                 status = 'open'
-            branches.append(Branch(b, status))
+            branches.append(Branch(self,b,n, status))
         return branches
