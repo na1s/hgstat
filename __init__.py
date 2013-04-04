@@ -1,7 +1,7 @@
 def generate_statistic(ui, repo, **opts):
     ui.write('Common repository statistics\r\n')
     ui.write("Heads count:%d\r\n" % len(repo.heads()))
-    ui.write("Heads count:%d\r\n" % len(repo.branchtags()))
+    ui.write("Branches count:%d\r\n" % len(repo.branchtags()))
 
 
 cmdtable = {
