@@ -44,6 +44,7 @@ class Branch:
             currentNode = queue.pop()
             nodes.append(currentNode)
             if currentNode.__nonzero__():
-                for parentNode in currentNode.parents():
-                    queue.append(parentNode)
-        return [node(b) for b in nodes if b.branch()==self.name]
+                if currentNode.branch()==self.name:
+                    for parentNode in currentNode.parents():
+                        queue.append(parentNode)
+        return [node(b) for b in nodes]
