@@ -4,7 +4,7 @@ from os import path
 from datetime import datetime
 from mercurial import patch, util
 from mercurial.templatefilters import person
-
+from node import *
 __author__ = 'denis'
 
 
@@ -34,3 +34,16 @@ class Branch:
         email = util.email(node_user)
         name = person(node_user)
         return name, email
+    def get_nodes(self):
+        startNode = self.repository.repo[self.get_node()]
+        queue = []
+        queue.append(startNode)
+        nodes = []
+        c = 0
+        while len(queue)!=0:
+            currentNode = queue.pop()
+            nodes.append(currentNode)
+            if currentNode.__nonzero__():
+                for parentNode in currentNode.parents():
+                    queue.append(parentNode)
+        return [node(b) for b in nodes if b.branch()==self.name]

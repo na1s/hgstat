@@ -16,7 +16,15 @@ def generate_statistic(ui, repo, **opts):
         date_str = strftime("%Y-%m-%d %H:%M:%S", b.get_date())
         print b.get_user()
         ui.write("Branch : %s, Date:%s\r\n" % (b.get_name(), date_str))
-
+        nodes = b.get_nodes()
+        files = {}
+        for node in nodes:
+            for file in node.files():
+                if not file in files:
+                    files[file]=0
+                files[file]+=1
+        top = sorted(files.items(), key=lambda x: x[1],reverse = True)
+        print top[0:10]
 
 cmdtable = {
     # cmd name        function call
