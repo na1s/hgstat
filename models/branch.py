@@ -38,13 +38,14 @@ class Branch:
         startNode = self.repository.repo[self.get_node()]
         queue = []
         queue.append(startNode)
-        nodes = []
+        nodes = {}
         c = 0
         while len(queue)!=0:
             currentNode = queue.pop()
-            nodes.append(currentNode)
-            if currentNode.__nonzero__():
-                if currentNode.branch()==self.name:
-                    for parentNode in currentNode.parents():
-                        queue.append(parentNode)
-        return [node(b) for b in nodes]
+            if not currentNode.hex() in nodes:
+                nodes[currentNode.hex()]=currentNode
+                if currentNode.__nonzero__():
+                    if currentNode.branch()==self.name:
+                        for parentNode in currentNode.parents():
+                            queue.append(parentNode)
+        return [node(nodes[b]) for b in nodes]
