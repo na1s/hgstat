@@ -23,3 +23,8 @@ class Repository:
                 status = 'open'
             branches.append(Branch(self,b,n, status))
         return branches
+    def get_nodes(self):
+        nodes = []
+        for b in self.get_branches():
+            nodes+= b.get_nodes()
+        return nodes

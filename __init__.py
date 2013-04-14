@@ -1,6 +1,7 @@
 from time import *
 
 from mercurial.node import hex, nullid
+from analyzers.users import UserAnalyzer
 from models.repository import *
 def generate_statistic(ui, repo, **opts):
     ui.write('Common repository statistics\r\n')
@@ -10,21 +11,11 @@ def generate_statistic(ui, repo, **opts):
     ui.write("Heads count:%d\r\n" % len(repo.heads()))
     ui.write("Branches count:%d\r\n" % len(branches))
     ui.write("Open branches count:%d\r\n" % len([b for b in branches if b.status == "open"]))
-    files = {}
-    for b in branches:
-        date_str = strftime("%Y-%m-%d %H:%M:%S", b.get_date())
-        print b.get_user()
-        ui.write("Branch : %s, Date:%s\r\n" % (b.get_name(), date_str))
-        nodes = b.get_nodes()
-
-        for node in nodes:
-            for file in node.files():
-                if not file in files:
-                    files[file]=0
-                files[file]+=1
-    top = sorted(files.items(), key=lambda x: x[1],reverse = True)
-    print top[0:30]
-
+    user_analyzer = UserAnalyzer(current_repo)
+    stat = user_analyzer.get_most_commiters()
+    stat2 = user_analyzer.get_most_file_commiters()
+    print stat[0:10]
+    print stat2[0:10]
 cmdtable = {
     # cmd name        function call
     'hgstat': (generate_statistic,
