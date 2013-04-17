@@ -1,10 +1,9 @@
 from time import gmtime
 from mercurial import util
-from os import path
-from datetime import datetime
 from mercurial import patch, util
 from mercurial.templatefilters import person
 from node import *
+
 __author__ = 'denis'
 
 
@@ -34,18 +33,19 @@ class Branch:
         email = util.email(node_user)
         name = person(node_user)
         return name, email
+
     def get_nodes(self):
         startNode = self.repository.repo[self.get_node()]
         queue = []
         queue.append(startNode)
         nodes = {}
         c = 0
-        while len(queue)!=0:
+        while len(queue) != 0:
             currentNode = queue.pop()
             if not currentNode.hex() in nodes:
-                nodes[currentNode.hex()]=currentNode
+                nodes[currentNode.hex()] = currentNode
                 if currentNode.__nonzero__():
-                    if currentNode.branch()==self.name:
+                    if currentNode.branch() == self.name:
                         for parentNode in currentNode.parents():
                             queue.append(parentNode)
         return [node(nodes[b]) for b in nodes]
