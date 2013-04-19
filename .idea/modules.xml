@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/hgstat.iml" filepath="$PROJECT_DIR$/.idea/hgstat.iml" />
+      <module fileurl="file://D:/mercurial-2.5/mercurial/hgweb/.idea/hgweb.iml" filepath="D:/mercurial-2.5/mercurial/hgweb/.idea/hgweb.iml" />
     </modules>
   </component>
 </project>
